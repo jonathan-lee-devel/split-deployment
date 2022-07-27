@@ -1,0 +1,13 @@
+apiVersion: v2
+appVersion: 1.0.0
+deprecated: false
+description: Split Application's Helm Chart
+maintainers:
+  - name: Jonathan Lee
+    email: jonathan.lee.devel@gmail.com
+name: split-chart
+sources:
+  - https://github.com/jonathan-lee-devel/split-api-node-ts-v2
+  - https://github.com/jonathan-lee-devel/split-client-angular-ts
+type: application
+version: 3.9.2

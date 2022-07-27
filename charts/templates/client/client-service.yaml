@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.splitClient.serviceName }}
+  labels:
+    app: {{ .Values.splitClient.serviceName }}
+spec:
+  selector:
+    app: {{ .Values.splitClient.label }}
+  ports:
+    - port: {{ .Values.splitClient.port }}
+      targetPort: {{ .Values.splitClient.port }}

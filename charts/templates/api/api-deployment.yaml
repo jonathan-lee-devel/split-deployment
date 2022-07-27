@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.splitApi.deploymentName }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.splitApi.label }}
+  replicas: {{ .Values.splitApi.replicas }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.splitApi.label }}
+        helm-revision: "{{ .Release.Revision }}"
+    spec:
+      containers:
+        - name: {{ .Values.splitApi.containerName }}
+          image: {{ .Values.splitApi.image }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          env:
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.coreConfig.configMap }}
+                  key: NODE_ENV
+          ports:
+            - containerPort: {{ .Values.splitApi.port }}
+              protocol: TCP
+          resources:
+            requests:
+              memory: {{ .Values.splitApi.resources.reqMemory }}
+              cpu: {{ .Values.splitApi.resources.reqCpu }}
+            limits:
+              memory: {{ .Values.splitApi.resources.limMemory }}
+              cpu: {{ .Values.splitApi.resources.limCpu }}

@@ -1,0 +1,40 @@
+imagePullPolicy: Always
+
+coreConfig:
+  configMap: core-config
+  namespace: split
+  nodeEnv: PROD
+  hostName: https://split.jonathanlee.io*
+
+splitApi:
+  deploymentName: split-api-deployment
+  serviceName: split-api
+  containerName: split-api
+  label: split-api-server
+  replicas: 1
+  image: jonathanleedev/split-api-v2:latest
+  port: 443
+  resources:
+    reqMemory: "64Mi"
+    reqCpu: "100m"
+    limMemory: "256Mi"
+    limCpu: "250m"
+
+splitClient:
+  deploymentName: split-client-deployment
+  serviceName: split-client
+  containerName: split-client
+  label: split-client-server
+  replicas: 1
+  image: jonathanleedev/split-client:latest
+  port: 443
+  resources:
+    reqMemory: "64Mi"
+    reqCpu: "100m"
+    limMemory: "256Mi"
+    limCpu: "250m"
+
+splitIngress:
+  hostName: split.jonathanlee.io
+  podName: ingress-deployment
+  namespaceName: split
